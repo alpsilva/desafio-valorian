@@ -31,7 +31,8 @@ def process_dataset(file_path: str):
     """
     Receives the filepath of souce dataset (the dataset must follow this exact structure).
     Loads the dataset into a Pandas Dataframe, removes null and noise rows,
-    augments the available data with a time window of 3 seconds and 75% overlap
+    augments the available data with a time window of 3 seconds and 75% overlap,
+    splits the useful attributes into features and label
     and finally splits the dataset into and returns:
     - training set (70%);
     - testing set (20%);
