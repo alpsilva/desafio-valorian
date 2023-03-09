@@ -38,7 +38,7 @@ def process_dataset(file_path: str):
     - testing set (20%);
     - validation set (10%).
     """
-    columns = ["individuo", "atividade", "timestamp", "x_accel", "y_accel", "z_accel"]
+    columns = ["individuo", "atividade", "timestamp", "x", "y", "z"]
     
     df = pandas.read_csv(
         file_path,
@@ -55,7 +55,7 @@ def process_dataset(file_path: str):
     overlap = 0.75
     df = create_time_window_data(df, time_interval, overlap)
 
-    features = ["x_accel", "y_accel", "z_accel"]
+    features = ["x", "y", "z"]
     label = ["atividade"]
 
     X = df[features]
