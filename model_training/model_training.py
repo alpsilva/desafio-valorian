@@ -1,5 +1,5 @@
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import KBinsDiscretizer, LabelEncoder
+from sklearn.preprocessing import KBinsDiscretizer
 from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
 
@@ -23,10 +23,6 @@ def train_model(X_train, y_train, model_algorithm):
     """
     match model_algorithm:
         case "XGBoost":
-            y_train = y_train.values.ravel()
-            label_encoder = LabelEncoder()
-            y_train = label_encoder.fit_transform(y_train)
-            
             discretizer = KBinsDiscretizer(
                 strategy="kmeans",
                 n_bins=XGB_DISCRETIZER_N_BINS,
@@ -41,8 +37,6 @@ def train_model(X_train, y_train, model_algorithm):
             )
             
         case "RandomForest":
-            y_train = y_train.values.ravel()
-
             discretizer = KBinsDiscretizer(
                 strategy="kmeans",
                 n_bins=RF_DISCRETIZER_N_BINS,
@@ -60,7 +54,7 @@ def train_model(X_train, y_train, model_algorithm):
         ('clf', classifier)
     ])
 
-    pipeline.fit(X_train, y_train)
+    pipeline.fit(X_train, y_train.values.ravel())
     return pipeline
 
 

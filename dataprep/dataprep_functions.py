@@ -27,7 +27,7 @@ def create_time_window_data(df: pandas.DataFrame, interval_in_seconds: int = 3, 
     new_df = pandas.concat(data)
     return new_df
 
-def process_dataset(file_path: str):
+def process_dataset(file_path: str, label_legend: dict):
     """
     Receives the filepath of souce dataset (the dataset must follow this exact structure).
     Loads the dataset into a Pandas Dataframe, removes null and noise rows,
@@ -50,6 +50,8 @@ def process_dataset(file_path: str):
 
     df = df.dropna()
     df = df.loc[(df["timestamp"] != 0) & (df["x"] != 0) & (df["y"] != 0) & (df["z"] != 0)]
+
+    df = df.replace({"atividade": label_legend})
 
     time_interval = 3
     overlap = 0.75

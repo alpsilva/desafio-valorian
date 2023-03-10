@@ -6,6 +6,18 @@ from model_training import (
 )
 import typer
 
+# I needed to hardcode this legend because XGBoost only accepts numeric labels.
+# If we pickle the label_enconder after fitting, it would work, but having another file
+# to deal with would make the application too complex, in this state.
+label_legend = {
+    "Downstairs": 0,
+    "Jogging": 1,
+    "Sitting": 2,
+    "Standing": 3,
+    "Upstairs": 4,
+    "Walking": 5
+}
+
 def main(operation: str, data_set_file_path: str = "",
         model_algorithm: str = "", saved_model_file_path: str = "",
         predict_input_file_path: str = "", predict_output_file_path: str = ""):
@@ -18,8 +30,7 @@ def main(operation: str, data_set_file_path: str = "",
 
             if safe:
                 print("Treating dataset. This may take a while.")
-                X_train, y_train, X_test, y_test, X_valid, y_valid = process_dataset(data_set_file_path)
-
+                X_train, y_train, X_test, y_test, X_valid, y_valid = process_dataset(data_set_file_path, label_legend)
 
                 if len(model_algorithm) == 0:
                     model_algorithm == "XGBoost"
