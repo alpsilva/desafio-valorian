@@ -25,7 +25,7 @@ python3 main.py train --model-algorithm [RandomForest or XGBoost] --data-set-fil
 python3 main.py predict --saved-model-file-path ./input_output/saved_models/<model_name>.pkl --predict-input-file-path ./input_output/pred_input.csv
 ```
 
-## Opções do CLI
+## CLI options
 
 | command                   | Description                                                                                                |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------- |
