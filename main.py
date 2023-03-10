@@ -17,23 +17,31 @@ def main(operation: str, data_set_file_path: str = "",
                 safe = False
 
             if safe:
+                print("Treating dataset. This may take a while.")
                 X_train, y_train, X_test, y_test, X_valid, y_valid = process_dataset(data_set_file_path)
+
 
                 if len(model_algorithm) == 0:
                     model_algorithm == "XGBoost"
 
                 if len(saved_model_file_path) == 0:
                     now_str = get_now_string()
-                    saved_model_file_path = f"model_{model_algorithm}_{now_str}.pkl"
-                
-                model = train_model(X_train, y_train, model_algorithm)
-                save_model(model, saved_model_file_path)
-                test_stats = test_model(model, X_test, y_test)
+                    saved_model_file_path = f"./input_output/saved_models/model_{model_algorithm}_{now_str}.pkl"
 
-                print(f"model saved at /saved_models/{saved_model_file_path}")
-                print("Stats for the trained model:")
-                for key, item in test_stats:
-                    print(f"{key}: {item}")
+                print("Training model.")
+                model = train_model(X_train, y_train, model_algorithm)
+                
+                print("Testing model.")
+                precision, recall, f1 = test_model(model, X_test, y_test)
+                print("Stats:")
+                print("Precision:", precision)
+                print("recall:", recall)
+                print("f1:", f1)
+                print("")
+                
+                save_model(model, saved_model_file_path)
+                print(f"model saved at ./saved_models/{saved_model_file_path}")
+
 
         case "predict":
             if len(saved_model_file_path) == 0:
@@ -51,11 +59,13 @@ def main(operation: str, data_set_file_path: str = "",
                 output = model.predict(prediction_input)
 
                 if len(predict_output_file_path) == 0:
-                    now_str = get_now_string
+                    now_str = get_now_string()
                     predict_output_file_path = f"output_{now_str}"
 
-                predict_output_file_path = f"./input_output/{predict_output_file_path}"
-                output.save(predict_output_file_path)
+                predict_output_file_path = f"./input_output/{predict_output_file_path}.txt"
+                with open(predict_output_file_path, 'x') as file:
+                    for item in output:
+                        file.write(f"{item}\n")
                 print(f"output saved at {predict_output_file_path}")
 
 if __name__ == "__main__":
