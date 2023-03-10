@@ -66,4 +66,17 @@ def process_dataset(file_path: str):
 
     return X_train, y_train, X_test, y_test, X_valid, y_valid
 
+def process_predict_input_dataset(file_path: str):
+    """
+    Receives the filepath of source dataset (the dataset must follow this exact structure).
+    Loads the dataset into a Pandas Dataframe and returns it.
+    """
+    columns = ["x", "y", "z"]
 
+    df = pandas.read_csv(
+        file_path,
+        sep=",",
+        names=columns
+    )
+
+    return df
