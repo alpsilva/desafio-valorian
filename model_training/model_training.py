@@ -13,8 +13,8 @@ RF_CLF_BOOTSTRAP = True
 XGB_DISCRETIZER_N_BINS = 9
 XGB_DISCRETIZER_ENCODE = "ordinal"
 XGB_CLF_ETA = 0.3
-XGB_CLF_MIN_CHILD_WEIGHT = 3
-XGB_CLF_MAX_DEPTH = None
+XGB_CLF_MIN_CHILD_WEIGHT = 9
+XGB_CLF_MAX_DEPTH = 7
 
 def train_model(X_train, y_train, model_algorithm):
     """
