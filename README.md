@@ -1,35 +1,39 @@
 # desafio-valorian
 
-Para esse desafio, foram feitos:
-1. Análise descritiva do dataset (analise_descritiva.ipynb)
-2. Análise e otimização dos modelos requisitados (analise_modelos.ipynb)
-3. CLI (feita utilizando a lib "typer") para treinamento rápido dos modelos via terminal (model_training). Nesse módulo, cada etapa detalhada nos notebooks de análise é replicada quando necessário e organizada em arquivos separados.
+For this challenge, the following was done:
+1. Descriptive analysis on the dataset (analise_descritiva.ipynb)
+2. analysis and optimization fo the requested models (analise_modelos.ipynb)
+3. CLI (made with Typer) for quick training of the models, using the terminal (main and model_training). In this Module, each transformation, cleaning and training step that were done in the analyses were wrapped in separate functions and files for organization.
 
-## Como rodar a CLI
+## How to run the CLI
 
-1. Entre na pasta "model_training":
-```bash
-cd model_training
-```
+1. make sure you are in the root of the project.
 
-2. Instale as dependências:
+2. Install dependencies:
 ```bash
 pip3 install -r requirements.txt
 ```
 
-3. Execute o arquivo principal:
+## Quick start
+### Train a model
 ```bash
-python3 main.py [operation] --dataset_file_path <path/> []
+python3 main.py train --model-algorithm [RandomForest or XGBoost] --data-set-file-path ./dataset/coleta.txt
 ```
 
+## Predict a dataset with a previously trained model
+```bash
+python3 main.py predict --saved-model-file-path ./input_output/saved_models/<model_name>.pkl --predict-input-file-path ./input_output/pred_input.csv
+```
 
 ## Opções do CLI
 
-| command                   | Description                                                                                                                   |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| operation                 | train to train a new model or predict to use an existing saved model to predict the class, based on the contents of a file.   |
-| data_set_file_path        | file_path to the training dataset.                                                                                            |   
-| model_algorithm           | XGBoost or RandomForest.                                                                                                      |
-| saved_model_file_path     | file path where the model will be saved for later use (if none is given, generates one automatically).                        |
-| predict_input_file_path   | file path where the input data for prediction is.                                                                             |
-| predict_output_file_path  | file path where the output of a prediction will be saved (if none is given, generates one automatically).                     |
+| command                   | Description                                                                                                |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| operation                 | train or predict. Trains a new model or predict using an existing saved model.                             |
+| data_set_file_path        | file_path to the training dataset.                                                                         |   
+| model_algorithm           | XGBoost or RandomForest.                                                                                   |
+| saved_model_file_path     | file path where the model will be saved for later use (if none is given, generates one automatically).     |
+| predict_input_file_path   | file path where the input data for prediction is.                                                          |
+| predict_output_file_path  | file path where the output of a prediction will be saved (if none is given, generates one automatically).  |
+
+
